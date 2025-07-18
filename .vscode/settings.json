@@ -1,0 +1,13 @@
+{
+  "python.pythonPath": "venv/bin/python",
+  "editor.formatOnSave": true,
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.mypyEnabled": true,
+  "python.sortImports.args": ["--profile", "black"],
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always"
+  },
+  "python.envFile": "${workspaceFolder}/.env",
+  "python.languageServer": "Pylance"
+}
