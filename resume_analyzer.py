@@ -117,10 +117,13 @@ class ResumeAnalyzer:
         "result": result
         }
 
-        parsed_result = json.loads(msg["result"])
+        if isinstance(msg["result"], str):
+          parsed_result = json.loads(msg["result"])
+        else:
+            parsed_result = msg["result"]
 
-        print(json.dumps(parsed_result, indent=2))
-        return result
+            print(json.dumps(parsed_result, indent=2))
+            return result
 
     def extract_resume_data(self, resume_text: str, model: str = None) -> Dict[str, Any]:
         if not resume_text or not isinstance(resume_text, str):

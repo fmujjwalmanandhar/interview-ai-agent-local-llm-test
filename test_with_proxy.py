@@ -31,6 +31,7 @@ if __name__ == "__main__":
     jobdesc_pdf_path = os.path.join(project_root, "sample_job_description.pdf")
     print(f"Extracting text from Resume PDF ...\n")
     resume_text = extract_text_from_pdf(resume_pdf_path)
+    print(f"Extracted text from Resume PDF:{resume_text} \n")
     print(f"Extracting text from Description PDF ...\n")
     job_description = extract_text_from_pdf(jobdesc_pdf_path)
     analyzer = ResumeAnalyzer()
