@@ -16,6 +16,7 @@ IMPORTANT RULES:
 4. Use empty arrays [] for missing lists
 5. Use empty strings "" for missing text
 6. Ensure the JSON is properly formatted with no trailing commas
+7. For string values that contain double quotes, use single quotes instead (e.g., "description": "Led the 'Nepal E-commerce Platform' project").
 
 Required JSON structure:
 {{

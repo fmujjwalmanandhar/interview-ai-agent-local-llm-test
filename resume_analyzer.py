@@ -55,19 +55,18 @@ class ResumeAnalyzer:
                     "raw_response": resp_json
                 }
                 return error
-            # print(f"response_text: {response_text}")
             response_text = response_text.strip()
-            # print(f"response_text strip: {response_text}")
             # Try direct parse
             try:
                 result = json.loads(response_text)
-                return json.dumps(result, separators=(',', ':'))
+                return result
             except Exception:
                 # Fallback: remove code fences and try regex extraction
                 if response_text.startswith("```"):
                     response_text = response_text.strip("`")
                     response_text = response_text.replace("json", "", 1).strip()
                 matches = re.findall(r'(\{.*?\}|\[.*?\])', response_text, re.DOTALL)
+
                 if matches:
                     json_str = max(matches, key=len)
                     # Remove trailing commas before } or ]
@@ -105,7 +104,6 @@ class ResumeAnalyzer:
         end_time_resume_extraction = time.time()
         time_taken_to_extract_resume = end_time_resume_extraction - start_time_resume_extraction
         print(f"Time taken to extract resume: {time_taken_to_extract_resume:.2f} seconds\n")
-        # print(f"after resume extraction data: {resume_data}\n\n")
 
         start_time_resume_analysis = time.time()
         prompt = get_resume_analysis_prompt(job_description, resume_data)
@@ -114,15 +112,13 @@ class ResumeAnalyzer:
         time_taken_to_analyze_resume = end_time_resume_analysis - start_time_resume_analysis
         print(f"Time taken to analyze resume: {time_taken_to_analyze_resume:.2f} seconds\n")
         msg = {
-        "result": result
-        }
-
+            "result": result
+            }
         if isinstance(msg["result"], str):
           parsed_result = json.loads(msg["result"])
         else:
             parsed_result = msg["result"]
 
-            print(json.dumps(parsed_result, indent=2))
             return result
 
     def extract_resume_data(self, resume_text: str, model: str = None) -> Dict[str, Any]:
